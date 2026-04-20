@@ -31,11 +31,11 @@ jobs:
           cache: pnpm
       - run: pnpm install --no-frozen-lockfile
       - run: pnpm --filter @workspace/tunner-kp build
-      - run: cp artifacts/tunner-kp/dist/index.html artifacts/tunner-kp/dist/404.html
+      - run: cp artifacts/tunner-kp/dist/public/index.html artifacts/tunner-kp/dist/public/404.html
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: artifacts/tunner-kp/dist
+          path: artifacts/tunner-kp/dist/public
 
   deploy:
     needs: build
