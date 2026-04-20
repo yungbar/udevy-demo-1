@@ -63,6 +63,11 @@ export default function KP() {
   const [chatOpen, setChatOpen] = useState(false);
   const [activeQA, setActiveQA] = useState<{ q: string; a: string } | null>(null);
   const [botTyping, setBotTyping] = useState(false);
+  const [loginOpen, setLoginOpen] = useState(false);
+  const [loginTab, setLoginTab] = useState<"phone" | "email">("phone");
+  const [loginPhone, setLoginPhone] = useState("");
+  const [loginEmail, setLoginEmail] = useState("");
+  const [loginPassword, setLoginPassword] = useState("");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -262,7 +267,7 @@ export default function KP() {
               </button>
             </div>
             
-            <button className="hidden md:flex items-center justify-center bg-black hover:bg-black/90 text-white text-sm font-bold uppercase tracking-wider px-5 py-2.5 rounded-full transition-all" data-testid="btn-login">
+            <button onClick={() => setLoginOpen(true)} className="hidden md:flex items-center justify-center bg-black hover:bg-black/90 text-white text-sm font-bold uppercase tracking-wider px-5 py-2.5 rounded-full transition-all" data-testid="btn-login">
               Войти
             </button>
 
@@ -876,6 +881,198 @@ export default function KP() {
           </div>
         </div>
       </footer>
+
+      {/* LOGIN MODAL */}
+      <AnimatePresence>
+        {loginOpen && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setLoginOpen(false)}
+              className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50"
+              data-testid="login-backdrop"
+            />
+
+            {/* Modal */}
+            <motion.div
+              initial={{ opacity: 0, y: 24, scale: 0.97 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 24, scale: 0.97 }}
+              transition={{ duration: 0.22, ease: "easeOut" }}
+              className="fixed inset-0 flex items-center justify-center z-50 p-4 pointer-events-none"
+            >
+              <div className="bg-white rounded-3xl shadow-2xl w-full max-w-[400px] overflow-hidden pointer-events-auto" data-testid="login-modal">
+
+                {/* Header */}
+                <div className="flex items-center justify-between px-7 pt-7 pb-0">
+                  <div>
+                    <div className="text-2xl font-black tracking-tight text-foreground uppercase">Войти</div>
+                    <div className="text-sm text-muted-foreground font-medium mt-0.5">в аккаунт TUNNER</div>
+                  </div>
+                  <button
+                    onClick={() => setLoginOpen(false)}
+                    className="w-9 h-9 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors"
+                    data-testid="btn-close-login"
+                  >
+                    <X className="w-4 h-4 text-foreground" />
+                  </button>
+                </div>
+
+                {/* Tab slider */}
+                <div className="px-7 pt-6">
+                  <div className="relative flex bg-gray-100 rounded-2xl p-1">
+                    <motion.div
+                      className="absolute top-1 bottom-1 rounded-xl bg-white shadow-sm"
+                      animate={{ left: loginTab === "phone" ? "4px" : "50%", width: "calc(50% - 4px)" }}
+                      transition={{ type: "spring", stiffness: 400, damping: 35 }}
+                    />
+                    <button
+                      onClick={() => setLoginTab("phone")}
+                      className="relative z-10 flex-1 py-2.5 text-sm font-bold rounded-xl transition-colors"
+                      style={{ color: loginTab === "phone" ? "#000" : "#9ca3af" }}
+                      data-testid="tab-phone"
+                    >
+                      Телефон
+                    </button>
+                    <button
+                      onClick={() => setLoginTab("email")}
+                      className="relative z-10 flex-1 py-2.5 text-sm font-bold rounded-xl transition-colors"
+                      style={{ color: loginTab === "email" ? "#000" : "#9ca3af" }}
+                      data-testid="tab-email"
+                    >
+                      Почта
+                    </button>
+                  </div>
+                </div>
+
+                {/* Form */}
+                <div className="px-7 pt-5 pb-2">
+                  <AnimatePresence mode="wait">
+                    {loginTab === "phone" ? (
+                      <motion.div
+                        key="phone"
+                        initial={{ opacity: 0, x: -10 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: 10 }}
+                        transition={{ duration: 0.15 }}
+                        className="flex flex-col gap-3"
+                      >
+                        <div className="flex flex-col gap-1.5">
+                          <label className="text-xs font-bold text-muted-foreground uppercase tracking-wider">Номер телефона</label>
+                          <div className="flex items-center gap-2 border-2 border-gray-200 focus-within:border-black rounded-2xl px-4 py-3.5 transition-colors bg-gray-50 focus-within:bg-white">
+                            <span className="text-sm font-bold text-muted-foreground">+7</span>
+                            <input
+                              type="tel"
+                              value={loginPhone}
+                              onChange={e => setLoginPhone(e.target.value)}
+                              placeholder="000 000-00-00"
+                              className="flex-1 bg-transparent text-sm font-medium text-foreground outline-none placeholder:text-gray-400"
+                              data-testid="input-phone"
+                            />
+                          </div>
+                        </div>
+                        <div className="flex flex-col gap-1.5">
+                          <label className="text-xs font-bold text-muted-foreground uppercase tracking-wider">Пароль</label>
+                          <div className="flex items-center border-2 border-gray-200 focus-within:border-black rounded-2xl px-4 py-3.5 transition-colors bg-gray-50 focus-within:bg-white">
+                            <input
+                              type="password"
+                              value={loginPassword}
+                              onChange={e => setLoginPassword(e.target.value)}
+                              placeholder="••••••••"
+                              className="flex-1 bg-transparent text-sm font-medium text-foreground outline-none placeholder:text-gray-400"
+                              data-testid="input-password-phone"
+                            />
+                          </div>
+                        </div>
+                      </motion.div>
+                    ) : (
+                      <motion.div
+                        key="email"
+                        initial={{ opacity: 0, x: 10 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -10 }}
+                        transition={{ duration: 0.15 }}
+                        className="flex flex-col gap-3"
+                      >
+                        <div className="flex flex-col gap-1.5">
+                          <label className="text-xs font-bold text-muted-foreground uppercase tracking-wider">Электронная почта</label>
+                          <div className="flex items-center border-2 border-gray-200 focus-within:border-black rounded-2xl px-4 py-3.5 transition-colors bg-gray-50 focus-within:bg-white">
+                            <input
+                              type="email"
+                              value={loginEmail}
+                              onChange={e => setLoginEmail(e.target.value)}
+                              placeholder="example@mail.ru"
+                              className="flex-1 bg-transparent text-sm font-medium text-foreground outline-none placeholder:text-gray-400"
+                              data-testid="input-email"
+                            />
+                          </div>
+                        </div>
+                        <div className="flex flex-col gap-1.5">
+                          <label className="text-xs font-bold text-muted-foreground uppercase tracking-wider">Пароль</label>
+                          <div className="flex items-center border-2 border-gray-200 focus-within:border-black rounded-2xl px-4 py-3.5 transition-colors bg-gray-50 focus-within:bg-white">
+                            <input
+                              type="password"
+                              value={loginPassword}
+                              onChange={e => setLoginPassword(e.target.value)}
+                              placeholder="••••••••"
+                              className="flex-1 bg-transparent text-sm font-medium text-foreground outline-none placeholder:text-gray-400"
+                              data-testid="input-password-email"
+                            />
+                          </div>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+
+                  <div className="flex items-center justify-end mt-2 mb-1">
+                    <button className="text-xs font-bold text-muted-foreground hover:text-foreground transition-colors" data-testid="link-forgot-password">
+                      Забыли пароль?
+                    </button>
+                  </div>
+                </div>
+
+                {/* Actions */}
+                <div className="px-7 pb-7 flex flex-col gap-3">
+                  <button
+                    className="w-full py-4 rounded-2xl bg-black hover:bg-black/90 text-white text-sm font-black uppercase tracking-wider transition-all active:scale-[0.98]"
+                    data-testid="btn-submit-login"
+                  >
+                    Войти
+                  </button>
+
+                  <div className="flex items-center gap-3 my-1">
+                    <div className="flex-1 h-px bg-gray-200" />
+                    <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">или</span>
+                    <div className="flex-1 h-px bg-gray-200" />
+                  </div>
+
+                  {/* Yandex login */}
+                  <button
+                    className="w-full py-3.5 rounded-2xl border-2 border-gray-200 hover:border-gray-300 hover:bg-gray-50 flex items-center justify-center gap-3 transition-all active:scale-[0.98]"
+                    data-testid="btn-yandex-login"
+                  >
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                      <circle cx="12" cy="12" r="12" fill="#FC3F1D"/>
+                      <path d="M13.4 5.5H12c-2.1 0-3.2 1.1-3.2 2.8 0 1.7.8 2.6 2.3 3.6l1.3.8-3.7 5.8H6.5l3.4-5.3C8.1 12 7 10.7 7 8.3c0-2.8 1.9-4.5 5-4.5h3.2V18.5H13.4V5.5Z" fill="white"/>
+                    </svg>
+                    <span className="text-sm font-bold text-foreground">Войти через Яндекс</span>
+                  </button>
+
+                  <div className="text-center mt-1">
+                    <span className="text-xs text-muted-foreground font-medium">Нет аккаунта? </span>
+                    <button className="text-xs font-bold text-foreground hover:underline" data-testid="link-register">
+                      Зарегистрироваться
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
 
       {/* FLOATING AI CHAT BUTTON */}
       <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
