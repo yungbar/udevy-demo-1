@@ -68,6 +68,12 @@ export default function KP() {
   const [loginPhone, setLoginPhone] = useState("");
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
+  const [demoOpen, setDemoOpen] = useState(false);
+
+  function handleDemo(e: React.MouseEvent) {
+    e.preventDefault();
+    setDemoOpen(true);
+  }
 
   useEffect(() => {
     const handleScroll = () => {
@@ -243,6 +249,7 @@ export default function KP() {
               <Link
                 key={link.name}
                 href={link.href}
+                onClick={handleDemo}
                 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
                 data-testid={`link-nav-${link.name.toLowerCase()}`}
               >
@@ -290,7 +297,7 @@ export default function KP() {
                 key={link.name}
                 href={link.href}
                 className="text-2xl font-black uppercase tracking-wider text-foreground"
-                onClick={() => setMobileMenuOpen(false)}
+                onClick={(e) => { setMobileMenuOpen(false); handleDemo(e); }}
                 data-testid={`link-mobile-nav-${link.name.toLowerCase()}`}
               >
                 {link.name}
@@ -844,30 +851,30 @@ export default function KP() {
             <div>
               <h4 className="font-bold uppercase tracking-wider text-foreground mb-6">Каталог</h4>
               <ul className="flex flex-col gap-4">
-                <li><Link href="/catalog/protein" className="text-sm text-muted-foreground hover:text-foreground font-medium transition-colors">Протеин</Link></li>
-                <li><Link href="/catalog/bcaa" className="text-sm text-muted-foreground hover:text-foreground font-medium transition-colors">BCAA</Link></li>
-                <li><Link href="/catalog/pre-workout" className="text-sm text-muted-foreground hover:text-foreground font-medium transition-colors">Pre-Workout</Link></li>
-                <li><Link href="/catalog/bars" className="text-sm text-muted-foreground hover:text-foreground font-medium transition-colors">Батончики</Link></li>
+                <li><button onClick={handleDemo} className="text-sm text-muted-foreground hover:text-foreground font-medium transition-colors">Протеин</button></li>
+                <li><button onClick={handleDemo} className="text-sm text-muted-foreground hover:text-foreground font-medium transition-colors">BCAA</button></li>
+                <li><button onClick={handleDemo} className="text-sm text-muted-foreground hover:text-foreground font-medium transition-colors">Pre-Workout</button></li>
+                <li><button onClick={handleDemo} className="text-sm text-muted-foreground hover:text-foreground font-medium transition-colors">Батончики</button></li>
               </ul>
             </div>
 
             <div>
               <h4 className="font-bold uppercase tracking-wider text-foreground mb-6">Личный кабинет</h4>
               <ul className="flex flex-col gap-4">
-                <li><Link href="/profile" className="text-sm text-muted-foreground hover:text-foreground font-medium transition-colors">Профиль</Link></li>
-                <li><Link href="/orders" className="text-sm text-muted-foreground hover:text-foreground font-medium transition-colors">Заказы</Link></li>
-                <li><Link href="/subscription" className="text-sm text-muted-foreground hover:text-foreground font-medium transition-colors">Подписка</Link></li>
-                <li><Link href="/bonuses" className="text-sm text-muted-foreground hover:text-foreground font-medium transition-colors">Бонусы</Link></li>
+                <li><button onClick={handleDemo} className="text-sm text-muted-foreground hover:text-foreground font-medium transition-colors">Профиль</button></li>
+                <li><button onClick={handleDemo} className="text-sm text-muted-foreground hover:text-foreground font-medium transition-colors">Заказы</button></li>
+                <li><button onClick={handleDemo} className="text-sm text-muted-foreground hover:text-foreground font-medium transition-colors">Подписка</button></li>
+                <li><button onClick={handleDemo} className="text-sm text-muted-foreground hover:text-foreground font-medium transition-colors">Бонусы</button></li>
               </ul>
             </div>
 
             <div>
               <h4 className="font-bold uppercase tracking-wider text-foreground mb-6">Компания</h4>
               <ul className="flex flex-col gap-4">
-                <li><Link href="/about" className="text-sm text-muted-foreground hover:text-foreground font-medium transition-colors">О бренде</Link></li>
-                <li><Link href="/contacts" className="text-sm text-muted-foreground hover:text-foreground font-medium transition-colors">Контакты</Link></li>
-                <li><Link href="/delivery" className="text-sm text-muted-foreground hover:text-foreground font-medium transition-colors">Доставка и оплата</Link></li>
-                <li><Link href="/faq" className="text-sm text-muted-foreground hover:text-foreground font-medium transition-colors">Вопрос-ответ</Link></li>
+                <li><button onClick={handleDemo} className="text-sm text-muted-foreground hover:text-foreground font-medium transition-colors">О бренде</button></li>
+                <li><button onClick={handleDemo} className="text-sm text-muted-foreground hover:text-foreground font-medium transition-colors">Контакты</button></li>
+                <li><button onClick={handleDemo} className="text-sm text-muted-foreground hover:text-foreground font-medium transition-colors">Доставка и оплата</button></li>
+                <li><button onClick={handleDemo} className="text-sm text-muted-foreground hover:text-foreground font-medium transition-colors">Вопрос-ответ</button></li>
               </ul>
             </div>
           </div>
@@ -875,12 +882,102 @@ export default function KP() {
           <div className="pt-8 border-t border-border flex flex-col md:flex-row items-center justify-between gap-4 text-xs font-bold uppercase tracking-widest text-muted-foreground/70">
             <div>© 2026 TUNNER / TNR</div>
             <div className="flex gap-6">
-              <Link href="/privacy" className="hover:text-foreground transition-colors">Политика конфиденциальности</Link>
-              <Link href="/terms" className="hover:text-foreground transition-colors">Все права защищены</Link>
+              <button onClick={handleDemo} className="hover:text-foreground transition-colors">Политика конфиденциальности</button>
+              <button onClick={handleDemo} className="hover:text-foreground transition-colors">Все права защищены</button>
             </div>
           </div>
         </div>
       </footer>
+
+      {/* DEMO INFO MODAL */}
+      <AnimatePresence>
+        {demoOpen && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setDemoOpen(false)}
+              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50"
+            />
+            <motion.div
+              initial={{ opacity: 0, y: 28, scale: 0.96 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 28, scale: 0.96 }}
+              transition={{ duration: 0.24, ease: "easeOut" }}
+              className="fixed inset-0 flex items-center justify-center z-50 p-4 pointer-events-none"
+            >
+              <div className="bg-white rounded-3xl shadow-2xl w-full max-w-[480px] overflow-hidden pointer-events-auto" data-testid="demo-modal">
+
+                {/* Top accent bar */}
+                <div className="h-1.5 w-full" style={{ background: "linear-gradient(90deg, #bcfd4c 0%, #a8ef2e 100%)" }} />
+
+                <div className="px-8 pt-7 pb-8">
+                  {/* Close */}
+                  <div className="flex items-start justify-between mb-6">
+                    <div className="inline-flex items-center gap-2 bg-black/5 rounded-full px-3 py-1.5">
+                      <div className="w-2 h-2 rounded-full bg-[#bcfd4c] animate-pulse" />
+                      <span className="text-xs font-black uppercase tracking-widest text-foreground">Демо-версия</span>
+                    </div>
+                    <button
+                      onClick={() => setDemoOpen(false)}
+                      className="w-9 h-9 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors flex-shrink-0"
+                    >
+                      <X className="w-4 h-4 text-foreground" />
+                    </button>
+                  </div>
+
+                  {/* Heading */}
+                  <h2 className="text-3xl font-black uppercase tracking-tight text-foreground leading-tight mb-3">
+                    Это только<br />начало
+                  </h2>
+                  <p className="text-base text-muted-foreground font-medium leading-relaxed mb-6">
+                    Перед вами — <strong className="text-foreground">интерактивный прототип</strong> будущего маркетплейса TUNNER. Каждый экран, каждая кнопка и анимация — продуманы специально под вашу аудиторию атлетов 18–35 лет.
+                  </p>
+
+                  {/* Features */}
+                  <ul className="flex flex-col gap-3 mb-7">
+                    {[
+                      { icon: "⚡", text: "Полная навигация, каталог, подписки и AI-консультант" },
+                      { icon: "🎨", text: "Уникальный дизайн-код: Inter Tight + лаймовый акцент #bcfd4c" },
+                      { icon: "📱", text: "Адаптивная вёрстка — идеально на любом устройстве" },
+                      { icon: "🔧", text: "Готов к интеграции с 1С-Битрикс и вашим бэкендом" },
+                    ].map((item) => (
+                      <li key={item.icon} className="flex items-start gap-3">
+                        <span className="text-base flex-shrink-0 mt-0.5">{item.icon}</span>
+                        <span className="text-sm font-medium text-foreground/80 leading-snug">{item.text}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  {/* CTA */}
+                  <div className="flex flex-col gap-3">
+                    <a
+                      href="https://t.me/wondersay"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full py-4 rounded-2xl font-black text-sm uppercase tracking-wider text-center transition-all active:scale-[0.98] flex items-center justify-center gap-2.5"
+                      style={{ background: "#bcfd4c", color: "#000" }}
+                      data-testid="btn-demo-cta"
+                    >
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                        <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.93 6.686l-1.683 7.93c-.126.572-.462.712-.937.443l-2.592-1.91-1.25 1.202c-.138.138-.254.254-.521.254l.186-2.638 4.8-4.337c.21-.185-.044-.288-.322-.103L8.23 14.25l-2.55-.797c-.555-.173-.567-.554.116-.82l9.966-3.845c.462-.168.867.113.719.903l-.551-.005z" fill="currentColor"/>
+                      </svg>
+                      Написать @wondersay
+                    </a>
+                    <button
+                      onClick={() => setDemoOpen(false)}
+                      className="w-full py-3.5 rounded-2xl border-2 border-gray-200 hover:border-gray-300 text-sm font-bold text-muted-foreground hover:text-foreground transition-all"
+                    >
+                      Продолжить просмотр
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
 
       {/* LOGIN MODAL */}
       <AnimatePresence>
