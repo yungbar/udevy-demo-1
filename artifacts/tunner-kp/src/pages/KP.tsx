@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import catProtein from "@assets/cat_protein.png";
 import catBcaa from "@assets/cat_bcaa.png";
 import catPreworkout from "@assets/cat_preworkout.png";
@@ -58,6 +58,7 @@ const aiQA = [
 ];
 
 export default function KP() {
+  const [, setLocation] = useLocation();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [chatOpen, setChatOpen] = useState(false);
@@ -269,7 +270,7 @@ export default function KP() {
                   2
                 </span>
               </button>
-              <button className="text-foreground hover:text-primary transition-colors" data-testid="btn-profile">
+              <button onClick={() => setLocation("/dashboard")} className="text-foreground hover:text-primary transition-colors" data-testid="btn-profile">
                 <User className="w-5 h-5" />
               </button>
             </div>
