@@ -30,11 +30,12 @@ jobs:
           node-version: 20
           cache: pnpm
       - run: pnpm install --no-frozen-lockfile
-      - run: pnpm --filter @workspace/mockup-sandbox build
+      - run: pnpm --filter @workspace/tunner-kp build
+      - run: cp artifacts/tunner-kp/dist/index.html artifacts/tunner-kp/dist/404.html
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: artifacts/mockup-sandbox/dist
+          path: artifacts/tunner-kp/dist
 
   deploy:
     needs: build
