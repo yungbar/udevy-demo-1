@@ -348,11 +348,9 @@ export default function KP() {
               transition={{ duration: 0.8 }}
               className="text-[clamp(2.5rem,6vw,6rem)] font-black uppercase tracking-tighter leading-[0.9] text-black mb-6"
             >
-              Питание <br />
-              <span className="text-primary">
-                Для Тех, Кто
-              </span><br />
-              Не Останавливается
+              Питание<br />
+              <span className="text-primary">Для Тех, Кто Не</span><br />
+              Останавливается
             </motion.h1>
 
             <motion.p
