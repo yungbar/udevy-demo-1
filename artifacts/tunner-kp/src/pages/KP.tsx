@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "wouter";
 import catProtein from "@assets/cat_protein.png";
 import catBcaa from "@assets/cat_bcaa.png";
@@ -30,12 +30,39 @@ import {
   MessageCircle,
   Clock,
   BrainCircuit,
-  LineChart
+  LineChart,
+  Sparkles
 } from "lucide-react";
+
+const aiQA = [
+  {
+    q: "Какой протеин выбрать при похудении?",
+    a: "Рекомендую изолят TUNNER Whey Pro — минимум углеводов, 28г белка на порцию. Он идеально подходит для сохранения мышц при дефиците калорий."
+  },
+  {
+    q: "Как правильно принимать BCAA?",
+    a: "TNR BCAA 8:1:1 лучше принимать до и сразу после тренировки — 5–10г. Аминокислоты ускоряют восстановление и защищают мышцы от катаболизма."
+  },
+  {
+    q: "Что выбрать для набора мышечной массы?",
+    a: "Для роста мышц рекомендую: TUNNER Whey Pro после тренировки + TUNNER Pre-Workout Blast перед. Такая связка обеспечит оптимальный анаболический отклик."
+  },
+  {
+    q: "Нужны ли витамины при активных тренировках?",
+    a: "Да, при нагрузках потребность в витаминах D3, B12, магнии и цинке значительно возрастает. Наш витаминный комплекс покрывает все суточные нормы для спортсменов."
+  },
+  {
+    q: "Что входит в подписку TUNNER?",
+    a: "Подписка Про (1990₽/мес) включает персональный план питания и тренировок от нутрициологов, консультации врачей, закрытые гайды и 5% кэшбек на все покупки."
+  }
+];
 
 export default function KP() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [chatOpen, setChatOpen] = useState(false);
+  const [activeQA, setActiveQA] = useState<{ q: string; a: string } | null>(null);
+  const [botTyping, setBotTyping] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -44,6 +71,15 @@ export default function KP() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  function handleSelectQuestion(item: { q: string; a: string }) {
+    setActiveQA({ q: item.q, a: "" });
+    setBotTyping(true);
+    setTimeout(() => {
+      setActiveQA(item);
+      setBotTyping(false);
+    }, 900);
+  }
 
   const navLinks = [
     { name: "Каталог", href: "/catalog" },
@@ -840,6 +876,142 @@ export default function KP() {
           </div>
         </div>
       </footer>
+
+      {/* FLOATING AI CHAT BUTTON */}
+      <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
+        <AnimatePresence>
+          {chatOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: 16, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 16, scale: 0.95 }}
+              transition={{ duration: 0.2 }}
+              className="w-[360px] rounded-3xl overflow-hidden shadow-2xl border border-white/10"
+              style={{ background: "#0d0d12" }}
+              data-testid="ai-chat-window"
+            >
+              {/* Header */}
+              <div className="flex items-center justify-between px-5 py-4 border-b border-white/10">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-full flex items-center justify-center" style={{ background: "#bcfd4c" }}>
+                    <BrainCircuit className="w-4 h-4 text-black" />
+                  </div>
+                  <div>
+                    <div className="text-sm font-black text-white tracking-tight">ИИ-консультант TUNNER</div>
+                    <div className="text-xs text-white/40 font-medium">На основе базы знаний нутрициологов</div>
+                  </div>
+                </div>
+                <button
+                  onClick={() => { setChatOpen(false); setActiveQA(null); }}
+                  className="w-7 h-7 rounded-full flex items-center justify-center bg-white/10 hover:bg-white/20 transition-colors"
+                  data-testid="btn-close-chat"
+                >
+                  <X className="w-3.5 h-3.5 text-white" />
+                </button>
+              </div>
+
+              {/* Chat area */}
+              <div className="p-4 flex flex-col gap-3 min-h-[200px]">
+                {!activeQA && (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="self-start bg-white/10 border border-white/5 px-4 py-3 rounded-2xl rounded-tl-sm max-w-[90%]"
+                  >
+                    <p className="text-sm text-white/80 font-medium leading-relaxed">
+                      Привет! Выбери вопрос ниже — отвечу на основе рекомендаций наших нутрициологов.
+                    </p>
+                  </motion.div>
+                )}
+
+                {activeQA && (
+                  <>
+                    <motion.div
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="self-end px-4 py-3 rounded-2xl rounded-tr-sm max-w-[85%] text-sm font-medium text-white border"
+                      style={{ background: "rgba(188,253,76,0.15)", borderColor: "rgba(188,253,76,0.3)" }}
+                    >
+                      {activeQA.q}
+                    </motion.div>
+
+                    {botTyping ? (
+                      <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        className="self-start flex items-center gap-2 bg-white/10 border border-white/5 px-4 py-3 rounded-2xl rounded-tl-sm"
+                      >
+                        <div className="flex gap-1">
+                          {[0, 1, 2].map(i => (
+                            <motion.div
+                              key={i}
+                              className="w-1.5 h-1.5 rounded-full bg-white/50"
+                              animate={{ opacity: [0.3, 1, 0.3] }}
+                              transition={{ duration: 1, repeat: Infinity, delay: i * 0.2 }}
+                            />
+                          ))}
+                        </div>
+                      </motion.div>
+                    ) : (
+                      <motion.div
+                        initial={{ opacity: 0, y: 8 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="self-start bg-white/10 border border-white/5 px-4 py-3 rounded-2xl rounded-tl-sm max-w-[90%] flex items-start gap-3"
+                      >
+                        <div className="w-5 h-5 rounded-full shrink-0 flex items-center justify-center mt-0.5" style={{ background: "#bcfd4c" }}>
+                          <BrainCircuit className="w-3 h-3 text-black" />
+                        </div>
+                        <p className="text-sm text-white/85 font-medium leading-relaxed">{activeQA.a}</p>
+                      </motion.div>
+                    )}
+                  </>
+                )}
+              </div>
+
+              {/* Question chips */}
+              <div className="px-4 pb-4 flex flex-col gap-2 border-t border-white/10 pt-3">
+                <p className="text-xs text-white/30 font-bold uppercase tracking-widest mb-1">Выбери вопрос</p>
+                {aiQA.map((item, i) => (
+                  <button
+                    key={i}
+                    onClick={() => handleSelectQuestion(item)}
+                    disabled={botTyping}
+                    className="text-left text-xs font-medium text-white/70 hover:text-white px-3 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 hover:border-white/15 transition-all disabled:opacity-40"
+                    data-testid={`btn-question-${i}`}
+                  >
+                    {item.q}
+                  </button>
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Floating button */}
+        <motion.button
+          onClick={() => { setChatOpen(v => !v); if (!chatOpen) setActiveQA(null); }}
+          whileHover={{ scale: 1.06 }}
+          whileTap={{ scale: 0.94 }}
+          className="w-14 h-14 rounded-full shadow-2xl flex items-center justify-center relative"
+          style={{ background: "#bcfd4c" }}
+          data-testid="btn-open-ai-chat"
+        >
+          <AnimatePresence mode="wait">
+            {chatOpen ? (
+              <motion.div key="close" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }} transition={{ duration: 0.15 }}>
+                <X className="w-6 h-6 text-black" />
+              </motion.div>
+            ) : (
+              <motion.div key="open" initial={{ rotate: 90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: -90, opacity: 0 }} transition={{ duration: 0.15 }}>
+                <Sparkles className="w-6 h-6 text-black" />
+              </motion.div>
+            )}
+          </AnimatePresence>
+          {!chatOpen && (
+            <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-red-500 text-white text-[9px] font-black flex items-center justify-center">1</span>
+          )}
+        </motion.button>
+      </div>
     </div>
   );
 }
