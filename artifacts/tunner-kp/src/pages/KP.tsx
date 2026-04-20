@@ -422,7 +422,7 @@ export default function KP() {
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.05 }}
               >
-                <Link href={category.href}>
+                <Link href={category.href} onClick={handleDemo}>
                   <motion.div
                     className="relative overflow-hidden rounded-2xl bg-white shadow-sm border border-gray-100 cursor-pointer group hover:bg-[#f0fcd4] hover:border-t-primary/50 transition-colors"
                     style={{ minHeight: '200px' }}
@@ -517,7 +517,7 @@ export default function KP() {
                       </span>
                     </div>
                   </div>
-                  <button className="w-full bg-black hover:bg-black/90 text-white font-bold uppercase tracking-wider py-3 rounded-xl transition-colors text-sm" data-testid={`btn-add-to-cart-${product.id}`}>
+                  <button onClick={handleDemo} className="w-full bg-black hover:bg-black/90 text-white font-bold uppercase tracking-wider py-3 rounded-xl transition-colors text-sm" data-testid={`btn-add-to-cart-${product.id}`}>
                     В корзину
                   </button>
                 </div>
@@ -559,7 +559,7 @@ export default function KP() {
               </div>
             </div>
 
-            <button className="bg-black hover:bg-black/90 text-white font-black uppercase tracking-wider px-10 py-5 rounded-full transition-all text-base md:text-lg mb-6 shadow-xl" data-testid="btn-start-test">
+            <button onClick={handleDemo} className="bg-black hover:bg-black/90 text-white font-black uppercase tracking-wider px-10 py-5 rounded-full transition-all text-base md:text-lg mb-6 shadow-xl" data-testid="btn-start-test">
               Начать бесплатный тест
             </button>
             <p className="text-xs font-bold uppercase tracking-widest text-black/40">
@@ -663,7 +663,7 @@ export default function KP() {
                   <span className="text-sm font-medium text-foreground">Отмена в любой момент</span>
                 </li>
               </ul>
-              <button className="w-full bg-muted hover:bg-muted/80 text-foreground font-bold uppercase tracking-wider py-4 rounded-xl transition-colors text-sm" data-testid="btn-sub-basic">
+              <button onClick={handleDemo} className="w-full bg-muted hover:bg-muted/80 text-foreground font-bold uppercase tracking-wider py-4 rounded-xl transition-colors text-sm" data-testid="btn-sub-basic">
                 Выбрать Базовый
               </button>
             </motion.div>
@@ -713,7 +713,7 @@ export default function KP() {
                   <span className="text-sm font-medium text-white/90">300 + 300 реферальных бонусов</span>
                 </li>
               </ul>
-              <button className="w-full bg-primary hover:bg-primary/90 text-black font-black uppercase tracking-wider py-4 rounded-xl transition-colors text-sm" data-testid="btn-sub-pro">
+              <button onClick={handleDemo} className="w-full bg-primary hover:bg-primary/90 text-black font-black uppercase tracking-wider py-4 rounded-xl transition-colors text-sm" data-testid="btn-sub-pro">
                 Выбрать Про
               </button>
             </motion.div>
@@ -760,6 +760,7 @@ export default function KP() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
+              onClick={handleDemo}
               className="bg-white border border-border p-8 rounded-3xl group cursor-pointer hover:shadow-xl hover:border-primary/30 transition-all flex flex-col"
             >
               <div className="flex items-center gap-3 mb-6">
@@ -804,7 +805,7 @@ export default function KP() {
               <p className="text-white/70 font-medium text-lg mb-8 leading-relaxed">
                 Задай вопрос о питании или добавках — бот отвечает мгновенно на основе базы знаний наших нутрициологов
               </p>
-              <button className="bg-primary hover:bg-primary/90 text-black font-black uppercase tracking-wider px-8 py-4 rounded-full transition-all text-sm flex items-center gap-3" data-testid="btn-ask-ai">
+              <button onClick={handleDemo} className="bg-primary hover:bg-primary/90 text-black font-black uppercase tracking-wider px-8 py-4 rounded-full transition-all text-sm flex items-center gap-3" data-testid="btn-ask-ai">
                 <MessageCircle className="w-5 h-5" /> Спросить бота
               </button>
             </div>
