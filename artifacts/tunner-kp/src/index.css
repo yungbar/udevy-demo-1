@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
 @plugin "@tailwindcss/typography";
@@ -56,46 +57,47 @@
   --elevate-1: rgba(255,255,255, .04);
   --elevate-2: rgba(255,255,255, .09);
 
-  /* Dark Theme Default */
-  --background: 0 0% 4%; /* #0a0a0a */
+  /* Dark Theme Default - Near Black */
+  --background: 240 7% 5%; /* #0d0d0f */
   --foreground: 0 0% 100%;
 
-  --border: 0 0% 15%; /* #262626 */
+  --border: 240 7% 15%; /* Dark gray */
 
-  --card: 0 0% 7%;
+  --card: 240 7% 7%;
   --card-foreground: 0 0% 100%;
-  --card-border: 0 0% 15%;
+  --card-border: 240 7% 15%;
 
-  --sidebar: 0 0% 7%;
+  --sidebar: 240 7% 7%;
   --sidebar-foreground: 0 0% 100%;
-  --sidebar-border: 0 0% 15%;
+  --sidebar-border: 240 7% 15%;
   --sidebar-primary: 75 97% 65%;
   --sidebar-primary-foreground: 0 0% 0%;
-  --sidebar-accent: 0 0% 15%;
+  --sidebar-accent: 240 7% 15%;
   --sidebar-accent-foreground: 0 0% 100%;
   --sidebar-ring: 75 97% 65%;
 
-  --popover: 0 0% 7%;
+  --popover: 240 7% 7%;
   --popover-foreground: 0 0% 100%;
-  --popover-border: 0 0% 15%;
+  --popover-border: 240 7% 15%;
 
   /* Neon Lime Green Primary */
   --primary: 75 97% 65%; /* #bcfd4c */
   --primary-foreground: 0 0% 0%;
 
-  --secondary: 0 0% 15%;
+  /* Dark muted secondary */
+  --secondary: 240 7% 12%;
   --secondary-foreground: 0 0% 100%;
 
-  --muted: 0 0% 15%;
-  --muted-foreground: 0 0% 60%;
+  --muted: 240 7% 15%;
+  --muted-foreground: 240 5% 65%;
 
-  --accent: 0 0% 15%;
+  --accent: 240 7% 15%;
   --accent-foreground: 0 0% 100%;
 
   --destructive: 0 84% 60%;
   --destructive-foreground: 0 0% 100%;
 
-  --input: 0 0% 15%;
+  --input: 240 7% 15%;
   --ring: 75 97% 65%;
   --chart-1: 75 97% 65%;
   --chart-2: 0 0% 100%;
@@ -103,7 +105,7 @@
   --chart-4: 0 0% 60%;
   --chart-5: 0 0% 40%;
 
-  --app-font-sans: 'Inter', sans-serif;
+  --app-font-sans: 'Inter Tight', sans-serif;
   --app-font-serif: Georgia, serif;
   --app-font-mono: Menlo, monospace;
   --radius: 0.25rem;

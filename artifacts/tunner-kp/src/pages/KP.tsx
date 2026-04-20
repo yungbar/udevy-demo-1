@@ -1,423 +1,312 @@
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Link } from "wouter";
 import {
-  ChevronRight,
-  Database,
-  UserCircle,
-  CreditCard,
-  Bot,
   Search,
-  CheckCircle2,
-  Cpu,
-  Layers,
-  Timer,
-  XCircle,
-  FileText,
+  ShoppingCart,
+  User,
+  Menu,
+  X,
+  Star,
+  Zap,
   ShieldCheck,
-  TrendingUp,
+  Truck,
+  Users,
+  Dumbbell,
   Activity,
-  Zap
+  Flame,
+  Pill,
+  CalendarDays
 } from "lucide-react";
 
 export default function KP() {
-  const fadeInUp = {
-    initial: { opacity: 0, y: 30 },
-    whileInView: { opacity: 1, y: 0 },
-    viewport: { once: true, margin: "-100px" },
-    transition: { duration: 0.6, ease: "easeOut" }
-  };
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const stagger = {
-    initial: { opacity: 0 },
-    whileInView: { opacity: 1 },
-    viewport: { once: true, margin: "-100px" },
-    transition: { staggerChildren: 0.1 }
-  };
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const navLinks = [
+    { name: "Каталог", href: "/catalog" },
+    { name: "Питание", href: "/nutrition" },
+    { name: "Тренировки", href: "/workouts" },
+    { name: "Подписка", href: "/subscribe" },
+    { name: "О бренде", href: "/about" },
+  ];
+
+  const categories = [
+    { name: "Протеин", icon: Dumbbell, href: "/catalog/protein" },
+    { name: "BCAA", icon: Activity, href: "/catalog/bcaa" },
+    { name: "Pre-workout", icon: Zap, href: "/catalog/pre-workout" },
+    { name: "Батончики", icon: Flame, href: "/catalog/bars" },
+    { name: "Витамины", icon: Pill, href: "/catalog/vitamins" },
+    { name: "Подписка", icon: CalendarDays, href: "/subscribe" },
+  ];
 
   return (
-    <div className="min-h-screen bg-background text-foreground overflow-x-hidden selection:bg-primary selection:text-primary-foreground">
-      
-      {/* 1. Hero Section */}
-      <section className="relative min-h-[90vh] flex flex-col justify-center px-6 md:px-12 lg:px-24 overflow-hidden pt-20 pb-20">
-        {/* Subtle background glow */}
-        <div className="absolute top-1/4 left-1/4 w-[50vw] h-[50vh] bg-primary/10 blur-[150px] rounded-full pointer-events-none" />
-        <div className="absolute bottom-0 right-0 w-[40vw] h-[40vh] bg-blue-500/10 blur-[150px] rounded-full pointer-events-none" />
+    <div className="min-h-screen bg-background text-foreground overflow-x-hidden font-sans">
+      {/* Header */}
+      <header
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+          isScrolled
+            ? "bg-background/80 backdrop-blur-md border-b border-white/5 py-3"
+            : "bg-transparent py-5"
+        }`}
+      >
+        <div className="max-w-[1600px] mx-auto px-6 md:px-12 flex items-center justify-between">
+          {/* Logo */}
+          <div className="flex items-center gap-2">
+            <Link href="/" className="flex items-end gap-1.5 group">
+              <span className="text-3xl font-black tracking-tighter uppercase text-white group-hover:text-primary transition-colors">
+                TUNNER
+              </span>
+              <span className="text-sm font-bold text-primary mb-1 tracking-widest hidden sm:block">
+                TNR
+              </span>
+            </Link>
+          </div>
 
-        <div className="relative z-10 max-w-5xl mx-auto w-full">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-          >
-            <div className="inline-block border border-primary/30 bg-primary/5 px-4 py-1.5 rounded-full text-primary text-sm font-mono uppercase tracking-wider mb-8">
-              Коммерческое предложение
-            </div>
-            
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-black uppercase tracking-tighter leading-tight mb-6">
-              TUNNER <span className="text-primary">/</span> TNR
-            </h1>
-            
-            <p className="text-xl md:text-3xl text-muted-foreground max-w-3xl leading-relaxed mb-12 font-medium">
-              Разработка B2C-маркетплейса спортивного питания на платформе 1С-Битрикс «Бизнес»
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-6 text-sm font-mono text-muted-foreground uppercase tracking-wider border-t border-border pt-8">
-              <div className="flex items-center gap-2">
-                <FileText className="w-4 h-4 text-primary" />
-                Апрель 2026 г.
-              </div>
-              <div className="hidden sm:block text-border">/</div>
-              <div className="flex items-center gap-2">
-                <UserCircle className="w-4 h-4 text-primary" />
-                Исполнитель: Fullstack-разработчик
-              </div>
-              <div className="hidden sm:block text-border">/</div>
-              <div className="flex items-center gap-2">
-                <Activity className="w-4 h-4 text-primary" />
-                Клиент: Фуд Инновация
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* 2. About Project */}
-      <section className="py-24 px-6 md:px-12 lg:px-24 bg-card/30 border-y border-border">
-        <div className="max-w-5xl mx-auto">
-          <motion.div {...fadeInUp} className="mb-16">
-            <h2 className="text-3xl md:text-5xl font-bold mb-6">О проекте</h2>
-            <p className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-4xl">
-              Создание полноценного B2C-маркетплейса для брендов TUNNER и TNR. Цель проекта — не просто каталог товаров, а <span className="text-foreground font-semibold">развитая экосистема бренда</span> с персонализированным подходом к каждому клиенту, умным подбором питания и цифровыми продуктами.
-            </p>
-          </motion.div>
-
-          <motion.div 
-            variants={stagger}
-            initial="initial"
-            whileInView="whileInView"
-            viewport={{ once: true }}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-          >
-            {[
-              { icon: Database, title: "Сложное ценообразование", desc: "Матрица цен (опт/розница/персональные) и точный учёт остатков по складам." },
-              { icon: UserCircle, title: "Умный Личный кабинет", desc: "Тестирование пользователей и формирование персонального плана питания и тренировок." },
-              { icon: CreditCard, title: "Цифровые продукты", desc: "Платная подписка на гайды, рецепты и эксклюзивные консультации нутрициологов." },
-              { icon: Bot, title: "ИИ-консультант", desc: "Бот на базе Gemini/Perplexity API, глубоко обученный на базе знаний компании." },
-              { icon: Search, title: "Продвинутое SEO", desc: "Стратегия E-E-A-T: привязка статей к профилям реальных врачей через Schema.org." }
-            ].map((feature, i) => (
-              <motion.div 
-                key={i} 
-                variants={fadeInUp}
-                className="p-6 rounded-2xl bg-card border border-border hover:border-primary/50 transition-colors group"
+          {/* Desktop Nav */}
+          <nav className="hidden lg:flex items-center gap-8">
+            {navLinks.map((link) => (
+              <Link
+                key={link.name}
+                href={link.href}
+                className="text-sm font-semibold uppercase tracking-wider text-muted-foreground hover:text-white transition-colors"
               >
-                <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                  <feature.icon className="w-6 h-6 text-primary" />
-                </div>
-                <h3 className="text-lg font-bold mb-3">{feature.title}</h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">{feature.desc}</p>
-              </motion.div>
+                {link.name}
+              </Link>
             ))}
-          </motion.div>
-        </div>
-      </section>
+          </nav>
 
-      {/* 3. Platform Choice & 4. Licenses */}
-      <section className="py-24 px-6 md:px-12 lg:px-24">
-        <div className="max-w-5xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-            
-            <motion.div {...fadeInUp}>
-              <div className="flex items-center gap-4 mb-6">
-                <Cpu className="w-8 h-8 text-primary" />
-                <h2 className="text-3xl md:text-4xl font-bold">Выбор платформы</h2>
-              </div>
-              <p className="text-xl font-medium mb-6">1С-Битрикс «Бизнес» + Аспро: Максимум</p>
-              <ul className="space-y-4 text-muted-foreground">
-                <li className="flex items-start gap-3">
-                  <CheckCircle2 className="w-5 h-5 text-primary shrink-0 mt-0.5" />
-                  <span>Сокращение бюджета на ~700 000–900 000 ₽ за счёт готовой архитектуры интернет-магазина.</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <CheckCircle2 className="w-5 h-5 text-primary shrink-0 mt-0.5" />
-                  <span>Наличие готовых модулей для B2C-маркетплейса.</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <CheckCircle2 className="w-5 h-5 text-primary shrink-0 mt-0.5" />
-                  <span>Глубокая кастомизация визуала под ваш премиальный брендбук.</span>
-                </li>
-              </ul>
-            </motion.div>
-
-            <motion.div {...fadeInUp} className="bg-card rounded-3xl p-8 border border-border">
-              <div className="flex items-center gap-4 mb-8">
-                <ShieldCheck className="w-7 h-7 text-primary" />
-                <h3 className="text-2xl font-bold">Лицензии ПО</h3>
-              </div>
-              <div className="space-y-4 mb-8">
-                <div className="flex justify-between items-center py-3 border-b border-border/50">
-                  <span className="text-muted-foreground">1С-Битрикс «Бизнес»</span>
-                  <span className="font-mono">96 500 ₽</span>
-                </div>
-                <div className="flex justify-between items-center py-3 border-b border-border/50">
-                  <span className="text-muted-foreground">Шаблон «Аспро: Максимум»</span>
-                  <span className="font-mono">149 900 ₽</span>
-                </div>
-                <div className="flex justify-between items-center py-3 text-sm text-muted-foreground/70">
-                  <span>Продление (со 2-го года)</span>
-                  <span className="font-mono">24 125 ₽/год</span>
-                </div>
-              </div>
-              <div className="flex justify-between items-center pt-4 border-t border-border">
-                <span className="text-lg font-bold">Итого лицензии:</span>
-                <span className="text-2xl font-bold text-primary font-mono">270 525 ₽</span>
-              </div>
-            </motion.div>
-
-          </div>
-        </div>
-      </section>
-
-      {/* 5. Work Blocks */}
-      <section className="py-24 px-6 md:px-12 lg:px-24 bg-card/30 border-y border-border">
-        <div className="max-w-5xl mx-auto">
-          <motion.div {...fadeInUp} className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
-            <div>
-              <h2 className="text-3xl md:text-5xl font-bold mb-4">Состав работ</h2>
-              <p className="text-muted-foreground">Детализация этапов разработки и интеграций.</p>
-            </div>
-            <div className="text-right">
-              <p className="text-sm text-muted-foreground uppercase tracking-wider mb-1">Ставка</p>
-              <p className="text-xl font-mono text-primary">3 500 ₽ / час</p>
-            </div>
-          </motion.div>
-
-          <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse min-w-[600px]">
-              <thead>
-                <tr className="border-b border-border/50 text-sm uppercase tracking-wider text-muted-foreground">
-                  <th className="py-4 px-4 font-medium">Задача</th>
-                  <th className="py-4 px-4 font-medium text-right w-24">Часы</th>
-                  <th className="py-4 px-4 font-medium text-right w-32">Стоимость</th>
-                </tr>
-              </thead>
-              <motion.tbody 
-                variants={stagger}
-                initial="initial"
-                whileInView="whileInView"
-                viewport={{ once: true }}
-                className="font-mono text-sm"
-              >
-                {[
-                  ["Установка и настройка платформы", 12, "42 000 ₽"],
-                  ["Кастомизация дизайна под брендбук", 32, "112 000 ₽"],
-                  ["Доработка карточки товара", 20, "70 000 ₽"],
-                  ["Личный кабинет — тест-модуль", 40, "140 000 ₽"],
-                  ["Личный кабинет — персональные планы", 60, "210 000 ₽"],
-                  ["Платная подписка на контент", 50, "175 000 ₽"],
-                  ["Бонусная и реферальная программа", 30, "105 000 ₽"],
-                  ["Сложное ценообразование (опт/розница)", 24, "84 000 ₽"],
-                  ["ИИ-бот (Gemini/Perplexity API)", 30, "105 000 ₽"],
-                  ["SEO: Schema.org и микроразметка", 12, "42 000 ₽"],
-                  ["Интеграция логистики (СДЭК, Яндекс)", 16, "56 000 ₽"],
-                  ["Доработка интеграции с 1С", 16, "56 000 ₽"],
-                  ["Триггерные сценарии и рассылки", 14, "49 000 ₽"],
-                  ["QA тестирование и деплой", 20, "70 000 ₽"]
-                ].map(([task, hours, price], i) => (
-                  <motion.tr key={i} variants={fadeInUp} className="border-b border-border/30 hover:bg-card/50 transition-colors">
-                    <td className="py-4 px-4 font-sans font-medium">{task}</td>
-                    <td className="py-4 px-4 text-right text-muted-foreground">{hours}</td>
-                    <td className="py-4 px-4 text-right">{price}</td>
-                  </motion.tr>
-                ))}
-              </motion.tbody>
-              <tfoot>
-                <tr className="border-t-2 border-border font-bold">
-                  <td className="py-6 px-4 font-sans text-lg">Итого за разработку</td>
-                  <td className="py-6 px-4 text-right text-muted-foreground">376</td>
-                  <td className="py-6 px-4 text-right text-primary text-xl">1 316 000 ₽</td>
-                </tr>
-              </tfoot>
-            </table>
-          </div>
-        </div>
-      </section>
-
-      {/* 6. Total Summary */}
-      <section className="py-24 px-6 md:px-12 lg:px-24">
-        <div className="max-w-5xl mx-auto">
-          <motion.div {...fadeInUp} className="bg-primary/5 border border-primary/20 rounded-3xl p-8 md:p-12 relative overflow-hidden">
-            <div className="absolute top-0 right-0 p-12 opacity-5 pointer-events-none">
-              <Zap className="w-64 h-64" />
+          {/* Actions */}
+          <div className="flex items-center gap-5">
+            <div className="hidden sm:flex items-center gap-4">
+              <button className="text-white hover:text-primary transition-colors">
+                <Search className="w-5 h-5" />
+              </button>
+              <button className="text-white hover:text-primary transition-colors relative group">
+                <ShoppingCart className="w-5 h-5" />
+                <span className="absolute -top-1.5 -right-2 bg-primary text-black text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+                  2
+                </span>
+              </button>
+              <button className="text-white hover:text-primary transition-colors">
+                <User className="w-5 h-5" />
+              </button>
             </div>
             
-            <h2 className="text-3xl md:text-4xl font-bold mb-10 relative z-10">Сводная стоимость</h2>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 relative z-10">
-              <div className="space-y-6">
-                <div className="flex justify-between items-center pb-4 border-b border-border/50">
-                  <span className="text-muted-foreground">Лицензии ПО</span>
-                  <span className="font-mono font-medium">270 525 ₽</span>
-                </div>
-                <div className="flex justify-between items-center pb-4 border-b border-border/50">
-                  <span className="text-muted-foreground">Разработка</span>
-                  <span className="font-mono font-medium">1 316 000 ₽</span>
-                </div>
-                <div className="flex justify-between items-end pt-4">
-                  <span className="text-xl font-bold">ИТОГО <span className="text-sm font-normal text-muted-foreground">(без НДС)</span></span>
-                  <span className="text-4xl font-bold text-primary font-mono tracking-tight">1 586 525 ₽</span>
-                </div>
-              </div>
-
-              <div className="bg-background rounded-2xl p-6 border border-border">
-                <h4 className="font-bold mb-4 flex items-center gap-2">
-                  <Layers className="w-5 h-5 text-primary" />
-                  Разбивка по этапам
-                </h4>
-                <div className="space-y-4">
-                  <div>
-                    <div className="flex justify-between text-sm mb-1">
-                      <span className="text-muted-foreground">MVP (Этап 1) ~60%</span>
-                      <span className="font-mono">951 915 ₽</span>
-                    </div>
-                    <div className="h-2 bg-secondary rounded-full overflow-hidden">
-                      <div className="h-full bg-primary w-[60%] rounded-full" />
-                    </div>
-                  </div>
-                  <div>
-                    <div className="flex justify-between text-sm mb-1">
-                      <span className="text-muted-foreground">Доработки (Этап 2) ~40%</span>
-                      <span className="font-mono">634 610 ₽</span>
-                    </div>
-                    <div className="h-2 bg-secondary rounded-full overflow-hidden">
-                      <div className="h-full bg-primary/40 w-[40%] rounded-full" />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* 7. Timeline */}
-      <section className="py-24 px-6 md:px-12 lg:px-24 bg-card/30 border-y border-border">
-        <div className="max-w-5xl mx-auto">
-          <motion.div {...fadeInUp} className="mb-16 text-center">
-            <Timer className="w-10 h-10 text-primary mx-auto mb-6" />
-            <h2 className="text-3xl md:text-5xl font-bold mb-4">Этапы и график</h2>
-            <p className="text-xl text-muted-foreground">Общий срок реализации: ~3 месяца</p>
-          </motion.div>
-
-          <div className="relative border-l border-border/50 ml-4 md:ml-8 space-y-12 pb-8">
-            {[
-              { phase: "Этап 1", title: "Инфраструктура + каталог", time: "2–3 нед.", pay: "30% оплаты" },
-              { phase: "Этап 2", title: "Личный кабинет + подписка", time: "4–6 нед.", pay: "40% оплаты" },
-              { phase: "Этап 3", title: "Интеграции + маркетинг", time: "3–4 нед.", pay: "20% оплаты" },
-              { phase: "Этап 4", title: "Тест и запуск", time: "1–2 нед.", pay: "10% оплаты" }
-            ].map((step, i) => (
-              <motion.div 
-                key={i}
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="relative pl-8 md:pl-12"
-              >
-                <div className="absolute -left-2 top-1.5 w-4 h-4 rounded-full bg-primary ring-4 ring-background" />
-                <div className="bg-card border border-border rounded-2xl p-6 hover:border-primary/30 transition-colors">
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-2">
-                    <h3 className="text-xl font-bold"><span className="text-primary mr-2">{step.phase}:</span> {step.title}</h3>
-                    <div className="flex gap-3 text-sm font-mono bg-background px-3 py-1.5 rounded-lg border border-border">
-                      <span className="text-muted-foreground">{step.time}</span>
-                      <span className="text-border">/</span>
-                      <span className="text-foreground">{step.pay}</span>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 8 & 9. Restrictions and Terms */}
-      <section className="py-24 px-6 md:px-12 lg:px-24">
-        <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16">
-          
-          <motion.div {...fadeInUp}>
-            <h3 className="text-2xl font-bold mb-6 flex items-center gap-3">
-              <TrendingUp className="w-6 h-6 text-primary" />
-              Порядок расчетов
-            </h3>
-            <div className="bg-card rounded-2xl p-6 border border-border space-y-4">
-              <div className="flex items-center gap-4">
-                <div className="w-12 text-right font-mono font-bold text-primary">30%</div>
-                <div className="text-muted-foreground">Предоплата</div>
-              </div>
-              <div className="flex items-center gap-4">
-                <div className="w-12 text-right font-mono font-bold text-primary">40%</div>
-                <div className="text-muted-foreground">По завершению Этапа 2</div>
-              </div>
-              <div className="flex items-center gap-4">
-                <div className="w-12 text-right font-mono font-bold text-primary">20%</div>
-                <div className="text-muted-foreground">По завершению Этапа 3</div>
-              </div>
-              <div className="flex items-center gap-4">
-                <div className="w-12 text-right font-mono font-bold text-primary">10%</div>
-                <div className="text-muted-foreground">После деплоя на Prod</div>
-              </div>
-              <div className="pt-4 mt-2 border-t border-border/50 flex items-center gap-3">
-                <ShieldCheck className="w-5 h-5 text-muted-foreground" />
-                <span className="text-sm font-medium">Гарантийная поддержка: 2 месяца</span>
-              </div>
-            </div>
-          </motion.div>
-
-          <motion.div {...fadeInUp}>
-            <h3 className="text-2xl font-bold mb-6 flex items-center gap-3">
-              <XCircle className="w-6 h-6 text-destructive" />
-              Что не входит в смету
-            </h3>
-            <ul className="space-y-3 text-muted-foreground">
-              {[
-                "Хостинг и серверная инфраструктура",
-                "Наполнение товарами, фото, описаниями",
-                "SEO-продвижение после запуска",
-                "Разработка мобильного приложения",
-                "Интеграция со сквозной аналитикой (Roistat)",
-                "Дизайн логотипов, иллюстраций, видеоматериалов"
-              ].map((item, i) => (
-                <li key={i} className="flex items-start gap-3">
-                  <div className="w-1.5 h-1.5 rounded-full bg-border mt-2 shrink-0" />
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
-          </motion.div>
-
-        </div>
-      </section>
-
-      {/* 10. Footer / CTA */}
-      <footer className="py-16 px-6 border-t border-border bg-card text-center">
-        <div className="max-w-3xl mx-auto flex flex-col items-center">
-          <motion.div {...fadeInUp} className="w-full">
-            <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter mb-8">Готовы начать?</h2>
-            <button className="bg-primary text-primary-foreground hover:bg-primary/90 font-bold text-lg px-8 py-4 rounded-xl transition-all hover:scale-105 active:scale-95 mb-12 flex items-center justify-center gap-2 mx-auto shadow-xl shadow-primary/20">
-              Обсудить проект
-              <ChevronRight className="w-5 h-5" />
+            <button className="hidden md:flex items-center justify-center bg-white/10 hover:bg-white/20 border border-white/5 text-white text-sm font-bold uppercase tracking-wider px-5 py-2.5 rounded-full transition-all">
+              Войти
             </button>
-            
-            <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 text-sm text-muted-foreground font-mono">
-              <p>КП действительно 30 дней с даты выставления</p>
-              <div className="hidden md:block text-border">•</div>
-              <p>Исполнитель: Fullstack-разработчик</p>
-              <div className="hidden md:block text-border">•</div>
-              <p>Апрель 2026 г.</p>
+
+            {/* Mobile menu toggle */}
+            <button 
+              className="lg:hidden text-white p-2"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            >
+              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
+        </div>
+      </header>
+
+      {/* Mobile Menu */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="fixed inset-0 z-40 bg-background/95 backdrop-blur-xl pt-24 px-6 pb-6 flex flex-col lg:hidden"
+          >
+            <nav className="flex flex-col gap-6 mt-8">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  className="text-2xl font-black uppercase tracking-wider text-white"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  {link.name}
+                </Link>
+              ))}
+            </nav>
+            <div className="mt-auto flex flex-col gap-4">
+              <div className="flex items-center justify-between border-t border-white/10 pt-6">
+                <button className="flex items-center gap-3 text-white">
+                  <Search className="w-6 h-6" />
+                  <span className="font-bold uppercase">Поиск</span>
+                </button>
+                <button className="flex items-center gap-3 text-white relative">
+                  <ShoppingCart className="w-6 h-6" />
+                  <span className="absolute -top-1.5 -left-1.5 bg-primary text-black text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">2</span>
+                  <span className="font-bold uppercase">Корзина</span>
+                </button>
+              </div>
+              <button className="w-full bg-primary text-black font-black uppercase tracking-wider py-4 rounded-xl mt-4">
+                Войти в профиль
+              </button>
             </div>
           </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Hero Section */}
+      <section className="relative min-h-[100dvh] flex flex-col justify-center pt-24 pb-12 overflow-hidden">
+        {/* Abstract Dark Background with Gradients */}
+        <div className="absolute inset-0 z-0 bg-[#0a0a0c]">
+          <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/10 via-background to-background" />
+          <div className="absolute bottom-0 left-0 w-full h-1/2 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-blue-900/10 via-transparent to-transparent" />
+          
+          {/* Subtle grid pattern */}
+          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTAgMGg0MHY0MEgweiIgZmlsbD0ibm9uZSIvPjxwYXRoIGQ9Ik0wIDM5LjVoNDBWMGgtMXYzOS41SDB6IiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMDMpIi8+PC9zdmc+')] opacity-50" />
         </div>
-      </footer>
+
+        <div className="relative z-10 max-w-[1600px] w-full mx-auto px-6 md:px-12 flex flex-col items-start justify-center grow">
+          
+          {/* Floating Badges (Desktop only for cleaner mobile) */}
+          <div className="absolute inset-0 pointer-events-none hidden lg:block">
+            <motion.div 
+              animate={{ y: [0, -20, 0], rotate: [0, 5, 0] }} 
+              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute top-[20%] right-[15%] bg-background/60 backdrop-blur-md border border-white/10 p-4 rounded-2xl shadow-2xl"
+            >
+              <div className="text-primary font-black text-2xl tracking-tighter">30г</div>
+              <div className="text-xs text-muted-foreground uppercase font-bold tracking-widest">Белка</div>
+            </motion.div>
+            
+            <motion.div 
+              animate={{ y: [0, 20, 0], rotate: [0, -5, 0] }} 
+              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+              className="absolute top-[45%] right-[5%] bg-background/60 backdrop-blur-md border border-white/10 p-4 rounded-2xl shadow-2xl"
+            >
+              <div className="text-white font-black text-2xl tracking-tighter">0г</div>
+              <div className="text-xs text-muted-foreground uppercase font-bold tracking-widest">Сахара</div>
+            </motion.div>
+
+            <motion.div 
+              animate={{ y: [0, -15, 0] }} 
+              transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+              className="absolute bottom-[30%] right-[25%] bg-background/60 backdrop-blur-md border border-primary/20 p-4 rounded-2xl shadow-2xl shadow-primary/5"
+            >
+              <div className="text-primary font-black text-2xl tracking-tighter">5000мг</div>
+              <div className="text-xs text-muted-foreground uppercase font-bold tracking-widest">BCAA</div>
+            </motion.div>
+          </div>
+
+          <div className="max-w-4xl relative">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-bold uppercase tracking-widest text-primary mb-8">
+                <Zap className="w-3.5 h-3.5 fill-primary" />
+                Новое поколение
+              </div>
+
+              <h1 className="text-[clamp(3rem,8vw,7rem)] font-black uppercase tracking-tighter leading-[0.9] text-white mb-6">
+                Питание <br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-emerald-400">
+                  Для Тех, Кто
+                </span> <br />
+                Не Останавливается
+              </h1>
+            </motion.div>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+              className="text-lg md:text-2xl text-muted-foreground font-medium max-w-2xl mb-12 leading-relaxed"
+            >
+              Функциональные добавки, созданные для максимальной производительности. Без компромиссов. Без скрытых составов. Только чистая энергия для твоих побед.
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+              className="flex flex-col sm:flex-row gap-4 mb-16"
+            >
+              <button className="bg-primary text-black font-black uppercase tracking-wider px-8 py-5 rounded-full hover:bg-white transition-all hover:scale-105 active:scale-95 flex items-center justify-center gap-2 text-sm sm:text-base">
+                Перейти в каталог
+              </button>
+              <button className="bg-white/5 hover:bg-white/10 text-white border border-white/10 font-bold uppercase tracking-wider px-8 py-5 rounded-full transition-all hover:border-white/30 text-sm sm:text-base">
+                Пройти тест — получить план
+              </button>
+            </motion.div>
+
+            {/* Trust Indicators */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1, delay: 0.6 }}
+              className="flex flex-wrap items-center gap-x-6 gap-y-3 text-xs md:text-sm font-semibold uppercase tracking-wider text-muted-foreground"
+            >
+              <div className="flex items-center gap-1.5 text-white">
+                <Star className="w-4 h-4 fill-primary text-primary" />
+                <span>4.9 / 5.0</span>
+              </div>
+              <div className="hidden sm:block w-1 h-1 rounded-full bg-white/20" />
+              <div className="flex items-center gap-1.5">
+                <Users className="w-4 h-4 text-white" />
+                <span>12 000+ клиентов</span>
+              </div>
+              <div className="hidden md:block w-1 h-1 rounded-full bg-white/20" />
+              <div className="flex items-center gap-1.5">
+                <Truck className="w-4 h-4 text-white" />
+                <span>Доставка от 1 дня</span>
+              </div>
+              <div className="hidden lg:block w-1 h-1 rounded-full bg-white/20" />
+              <div className="flex items-center gap-1.5">
+                <ShieldCheck className="w-4 h-4 text-white" />
+                <span>Гарантия качества</span>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Category Strip */}
+      <section className="border-y border-white/5 bg-background relative z-20">
+        <div className="max-w-[1600px] mx-auto px-6 md:px-12 py-6 overflow-x-auto hide-scrollbar">
+          <div className="flex items-center gap-4 min-w-max">
+            <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground mr-4">Быстрый поиск:</span>
+            {categories.map((cat, i) => (
+              <Link 
+                key={i} 
+                href={cat.href}
+                className="group flex items-center gap-2.5 px-5 py-3 bg-white/5 hover:bg-primary/10 border border-white/5 hover:border-primary/30 rounded-full transition-all cursor-pointer"
+              >
+                <cat.icon className="w-4 h-4 text-white group-hover:text-primary transition-colors" />
+                <span className="text-sm font-bold uppercase tracking-wider text-white group-hover:text-primary transition-colors">
+                  {cat.name}
+                </span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+      
+      {/* Spacer to prove it's a real page scroll */}
+      <div className="h-32 bg-background" />
+
+      <style dangerouslySetInnerHTML={{__html: `
+        .hide-scrollbar::-webkit-scrollbar {
+          display: none;
+        }
+        .hide-scrollbar {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+      `}} />
     </div>
   );
 }
