@@ -1,0 +1,50 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "IxUbqUncYcG7JrAoYASO0"
+uri = "file://attached_assets/cat_protein.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "zrJOFL8XVA5iiPlyRJfkk"
+uri = "file://attached_assets/cat_bcaa.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "KG3fxnuZLSFeUoVnSy18N"
+uri = "file://attached_assets/cat_preworkout.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "P4o7WHGUP581EsIOhtg4g"
+uri = "file://attached_assets/cat_bars.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "GBTK5faxjW2RVOycFfL8-"
+uri = "file://attached_assets/cat_vitamins.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "IozcvzlyDklmmqvOBKIlj"
+uri = "file://attached_assets/cat_fatburner.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "mRaNUjGWginCVKulLwvlu"
+uri = "file://attached_assets/cat_complex.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "1fUoGtwUpGfxWEb78TR_3"
+uri = "file://attached_assets/cat_subscription.png"
+type = "image"
+title = "generated_image"

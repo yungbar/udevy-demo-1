@@ -1,6 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Link } from "wouter";
+import catProtein from "@assets/cat_protein.png";
+import catBcaa from "@assets/cat_bcaa.png";
+import catPreworkout from "@assets/cat_preworkout.png";
+import catBars from "@assets/cat_bars.png";
+import catVitamins from "@assets/cat_vitamins.png";
+import catFatburner from "@assets/cat_fatburner.png";
+import catComplex from "@assets/cat_complex.png";
+import catSubscription from "@assets/cat_subscription.png";
 import {
   Search,
   ShoppingCart,
@@ -47,14 +55,14 @@ export default function KP() {
   ];
 
   const categories = [
-    { name: "Протеин", desc: "Изолят, концентрат, казеин", icon: Dumbbell, href: "/catalog/protein" },
-    { name: "BCAA & Аминокислоты", desc: "Восстановление и синтез белка", icon: Activity, href: "/catalog/bcaa" },
-    { name: "Pre-Workout", desc: "Энергия и концентрация перед тренировкой", icon: Zap, href: "/catalog/pre-workout" },
-    { name: "Батончики & Снеки", desc: "Перекус без сахара и лишних калорий", icon: Flame, href: "/catalog/bars" },
-    { name: "Витамины & Минералы", desc: "Здоровье и иммунитет", icon: ShieldCheck, href: "/catalog/vitamins" },
-    { name: "Жиросжигатели", desc: "Термодженики и L-карнитин", icon: TrendingDown, href: "/catalog/fat-burners" },
-    { name: "Комплексы", desc: "Готовые наборы под цели", icon: Package, href: "/catalog/complexes" },
-    { name: "Цифровая подписка", desc: "Планы питания и тренировок от нутрициологов", icon: Crown, href: "/subscribe" },
+    { name: "Протеин", desc: "Изолят, концентрат, казеин", icon: Dumbbell, href: "/catalog/protein", image: catProtein },
+    { name: "BCAA & Аминокислоты", desc: "Восстановление и синтез белка", icon: Activity, href: "/catalog/bcaa", image: catBcaa },
+    { name: "Pre-Workout", desc: "Энергия и концентрация перед тренировкой", icon: Zap, href: "/catalog/pre-workout", image: catPreworkout },
+    { name: "Батончики & Снеки", desc: "Перекус без сахара и лишних калорий", icon: Flame, href: "/catalog/bars", image: catBars },
+    { name: "Витамины & Минералы", desc: "Здоровье и иммунитет", icon: ShieldCheck, href: "/catalog/vitamins", image: catVitamins },
+    { name: "Жиросжигатели", desc: "Термодженики и L-карнитин", icon: TrendingDown, href: "/catalog/fat-burners", image: catFatburner },
+    { name: "Комплексы", desc: "Готовые наборы под цели", icon: Package, href: "/catalog/complexes", image: catComplex },
+    { name: "Цифровая подписка", desc: "Планы питания и тренировок от нутрициологов", icon: Crown, href: "/subscribe", image: catSubscription },
   ];
 
   const products = [
@@ -252,9 +260,9 @@ export default function KP() {
       )}
 
       {/* 2. HERO BANNER */}
-      <section className="relative min-h-[100dvh] flex flex-col justify-center pt-24 pb-12 overflow-hidden bg-[#0d0d12]">
+      <section className="relative min-h-[100dvh] flex flex-col justify-center pt-24 pb-12 overflow-hidden bg-gray-50">
         <div className="absolute inset-0 z-0">
-          <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent" />
+          <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/20 via-transparent to-transparent" />
         </div>
 
         <div className="relative z-10 max-w-[1600px] w-full mx-auto px-6 md:px-12 flex flex-col items-start justify-center grow">
@@ -262,26 +270,26 @@ export default function KP() {
             <motion.div 
               animate={{ y: [0, -10, 0] }} 
               transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-              className="bg-white/10 backdrop-blur-md border border-white/10 p-5 rounded-2xl"
+              className="bg-white shadow-sm border border-gray-200 p-5 rounded-2xl"
             >
-              <div className="text-white font-black text-3xl tracking-tighter">30г</div>
-              <div className="text-xs text-white/50 uppercase font-bold tracking-widest mt-1">белка</div>
+              <div className="text-black font-black text-3xl tracking-tighter">30г</div>
+              <div className="text-xs text-gray-500 uppercase font-bold tracking-widest mt-1">белка</div>
             </motion.div>
             <motion.div 
               animate={{ y: [0, 10, 0] }} 
               transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-              className="bg-white/10 backdrop-blur-md border border-white/10 p-5 rounded-2xl"
+              className="bg-white shadow-sm border border-gray-200 p-5 rounded-2xl"
             >
-              <div className="text-white font-black text-3xl tracking-tighter">0г</div>
-              <div className="text-xs text-white/50 uppercase font-bold tracking-widest mt-1">сахара</div>
+              <div className="text-black font-black text-3xl tracking-tighter">0г</div>
+              <div className="text-xs text-gray-500 uppercase font-bold tracking-widest mt-1">сахара</div>
             </motion.div>
             <motion.div 
               animate={{ y: [0, -15, 0] }} 
               transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-              className="bg-white/10 backdrop-blur-md border border-primary/30 p-5 rounded-2xl"
+              className="bg-white shadow-sm border border-primary/30 p-5 rounded-2xl"
             >
               <div className="text-primary font-black text-3xl tracking-tighter">5000мг</div>
-              <div className="text-xs text-white/50 uppercase font-bold tracking-widest mt-1">BCAA</div>
+              <div className="text-xs text-gray-500 uppercase font-bold tracking-widest mt-1">BCAA</div>
             </motion.div>
           </div>
 
@@ -290,7 +298,7 @@ export default function KP() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
-              className="text-[clamp(2.5rem,6vw,6rem)] font-black uppercase tracking-tighter leading-[0.9] text-white mb-6"
+              className="text-[clamp(2.5rem,6vw,6rem)] font-black uppercase tracking-tighter leading-[0.9] text-black mb-6"
             >
               Питание <br />
               <span className="text-primary">
@@ -303,7 +311,7 @@ export default function KP() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.1 }}
-              className="text-lg md:text-2xl text-white/70 font-medium max-w-2xl mb-12 leading-relaxed"
+              className="text-lg md:text-2xl text-gray-700 font-medium max-w-2xl mb-12 leading-relaxed"
             >
               Функциональные добавки, персональные программы питания и тренировок — всё в одной экосистеме
             </motion.p>
@@ -314,10 +322,10 @@ export default function KP() {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="flex flex-col sm:flex-row gap-4 mb-16"
             >
-              <button className="bg-primary text-black font-black uppercase tracking-wider px-8 py-4 rounded-full hover:bg-primary/90 transition-all flex items-center justify-center text-sm md:text-base" data-testid="btn-hero-catalog">
+              <button className="bg-black text-white font-black uppercase tracking-wider px-8 py-4 rounded-full hover:bg-black/90 transition-all flex items-center justify-center text-sm md:text-base" data-testid="btn-hero-catalog">
                 Перейти в каталог
               </button>
-              <button className="bg-transparent border border-white text-white font-bold uppercase tracking-wider px-8 py-4 rounded-full hover:bg-white/10 transition-all text-sm md:text-base" data-testid="btn-hero-test">
+              <button className="bg-transparent border border-black text-black font-bold uppercase tracking-wider px-8 py-4 rounded-full hover:bg-gray-100 transition-all text-sm md:text-base" data-testid="btn-hero-test">
                 Пройти тест
               </button>
             </motion.div>
@@ -326,21 +334,21 @@ export default function KP() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 1, delay: 0.6 }}
-              className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs font-bold uppercase tracking-wider text-white/50"
+              className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs font-bold uppercase tracking-wider text-gray-500"
             >
-              <div className="flex items-center gap-1.5 text-white">
+              <div className="flex items-center gap-1.5 text-black">
                 <Star className="w-4 h-4 fill-primary text-primary" />
                 <span>4.9</span>
               </div>
-              <div className="w-1 h-1 rounded-full bg-white/20" />
+              <div className="w-1 h-1 rounded-full bg-gray-300" />
               <span>12 000+ клиентов</span>
-              <div className="w-1 h-1 rounded-full bg-white/20" />
+              <div className="w-1 h-1 rounded-full bg-gray-300" />
               <span>Доставка СДЭК, Яндекс</span>
-              <div className="w-1 h-1 rounded-full bg-white/20" />
+              <div className="w-1 h-1 rounded-full bg-gray-300" />
               <span>Сбер</span>
-              <div className="w-1 h-1 rounded-full bg-white/20" />
+              <div className="w-1 h-1 rounded-full bg-gray-300" />
               <span>Яндекс Сплит</span>
-              <div className="w-1 h-1 rounded-full bg-white/20" />
+              <div className="w-1 h-1 rounded-full bg-gray-300" />
               <span>Платите Долями</span>
             </motion.div>
           </div>
@@ -359,8 +367,7 @@ export default function KP() {
         </motion.h2>
 
         <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
-          {categories.map((cat, i) => {
-            const Icon = cat.icon;
+          {categories.map((category, i) => {
             return (
               <motion.div
                 key={i}
@@ -369,19 +376,24 @@ export default function KP() {
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.05 }}
               >
-                <Link href={cat.href} className="block group h-full bg-[#f5f5f5] rounded-3xl p-6 transition-all hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/5 border border-transparent hover:border-primary/50 relative overflow-hidden" data-testid={`card-category-${i}`}>
-                  <div className="bg-white w-14 h-14 rounded-2xl flex items-center justify-center mb-6 shadow-sm group-hover:scale-110 transition-transform">
-                    <Icon className="w-7 h-7 text-foreground" />
-                  </div>
-                  <h3 className="text-xl font-black text-foreground mb-2 leading-tight pr-8">
-                    {cat.name}
-                  </h3>
-                  <p className="text-sm font-medium text-muted-foreground line-clamp-2">
-                    {cat.desc}
-                  </p>
-                  <div className="absolute top-6 right-6 w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-sm opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all">
-                    <ArrowRight className="w-4 h-4 text-foreground" />
-                  </div>
+                <Link href={category.href}>
+                  <motion.div
+                    className="relative overflow-hidden rounded-2xl bg-white shadow-sm border border-gray-100 cursor-pointer group hover:bg-[#f0fcd4] hover:border-t-primary/50 transition-colors"
+                    style={{ minHeight: '200px' }}
+                    whileHover={{ y: -4, boxShadow: '0 12px 32px rgba(0,0,0,0.10)' }}
+                    data-testid={`card-category-${i}`}
+                  >
+                    {/* Top-left content */}
+                    <div className="p-6 pb-0 relative z-10 max-w-[60%]">
+                      <span className="text-xl font-black text-black block leading-tight">{category.name}</span>
+                      <p className="text-sm text-gray-500 mt-1 line-clamp-2">{category.desc}</p>
+                      <ArrowRight size={20} className="mt-3 text-gray-400 group-hover:text-primary transition-colors" />
+                    </div>
+                    {/* Bottom-right image */}
+                    <div className="absolute bottom-0 right-0 w-[55%] h-[75%]">
+                      <img src={category.image} alt={category.name} className="w-full h-full object-cover object-top rounded-tl-2xl group-hover:scale-105 transition-transform duration-500" />
+                    </div>
+                  </motion.div>
                 </Link>
               </motion.div>
             );
